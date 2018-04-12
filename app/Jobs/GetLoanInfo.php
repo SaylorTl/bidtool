@@ -37,8 +37,6 @@ class GetLoanInfo implements ShouldQueue
      */
     public function handle()
     {
-
-        (new DoBid())->dispatch()->onQueue("dobid");
         $bidList =  $this->getLoanInfo($this->aviList);
         if(1 == $bidList['Result'] ){
             foreach($bidList['LoanInfos'] as $bk=>$bv){
