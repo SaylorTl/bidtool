@@ -48,18 +48,18 @@ class GetLoanList implements ShouldQueue
         $result = json_decode($this->client->send($url, $request,config('app.accessToken'),30),true);
         if(!$result){
             pp_log("查询失败：".$result['ResultMessage']);
-            exit;
+            return;
         }
         if($result['Result'] !== 1){
             pp_log("查询失败：".$result['ResultMessage']);
             $this->finish = false;
-            exit;
+            return;
         }
         $aviLoan = array();
         if(empty($result['LoanInfos'])){
             pp_log('查询结果为空','123');
             $this->finish = false;
-            exit;
+            return;
         }
         foreach($result['LoanInfos'] as $key=>$value){
             if($this->cache->get("ppid".$value['ListingId'])){
@@ -79,7 +79,7 @@ class GetLoanList implements ShouldQueue
         }
         if(!$aviLoan){
             pp_log("筛选出符合条件标的为空",00);
-            exit;
+            return;
         }
         $temp = array();
         foreach($aviLoan as $k=>$v){
