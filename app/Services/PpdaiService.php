@@ -18,6 +18,9 @@ class PpdaiService
 
     private  $instance;
 
+    CONST QUEUE_PPDAI_PID = 'QUEUE_PPDAI_BID';
+    CONST QUEUE_PPDAI_LOAN = 'QUEUE_PPDAI_LOAN';
+
     public function __construct()
     {
         $config = new Config();

@@ -54,16 +54,39 @@ return [
     'MaxOwingLimit12' =>15000,	//12个月最大允许的待还金额
 
     //请替换自己的appid和appPrivateKey, 申请地址：http://open.ppdai.com/
-    'appid'=>'xxx',
+    'appid'=>'20da2fc969914505977e5c8d58a171dd',
 
     /**
      * php在生成密钥时，需要选择PEM PKCS#1格式的密钥，否则会报错
      * @var string $appPrivateKey
      * @var string $appPublicKey
      */
-    'appPrivateKey' => '',
-    'appPublicKey'=>'',
-
-    'accessToken' =>""//我的
+    /**
+     * php在生成密钥时，需要选择PEM PKCS#1格式的密钥，否则会报错
+     * @var string $appPrivateKey
+     * @var string $appPublicKey
+     */
+    'appPrivateKey' => '-----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQCapAZZraRTkJCXiSGZ5ihz9ebNw5DGnng/gklboME+YMHKN37G
+skbQGpi5h/tt0OP3anwiBHsOv18psDTruV9aY4Hxxj4IAZUuNKKMLu98dcX24rfB
+p9X53234PyCneQzXJ2Q9Xr0ehPJIe61tkiYkIdbvzJl7AnhoFTwEHtXP2QIDAQAB
+AoGADSjSJYWCS14s/8g6pMcSQDP3zSDMTCqmHvluVq7KYw2G0DeCwVPgdMsengM1
+YTX6gE5+e8KX2jxs07Zb+odO1taSYMJh0q7E9anbUhIGJx7YVEXljFAD6p/xAdO6
+uoXVd01/D4chfJyoRzV7cBcLXrSspC7l3cHqmhVLHTFpyAECQQD5D+L9hBQVuxyt
+gQm7jhho+BbfvjDWoOgWopOq87BiWe/PQhZfu6cz+4rVubZ9+hzV+FydBEfY3X1m
+aARb58MBAkEAnvLMyW8g1Tz4GysPikaTsn4i7XRkW4CBGu55J8YKHM3vJkQqStYl
+SASQTqk8CYBdCnEmMBXhmmryxEF0d9WE2QJBAKSCMdRyITIZXV/dE6imusja1YEE
+Bw49Sg9pY1BPlfngnd2wMUcak95qD9IL0NZ1Fgbe/Y1Y/nvoEKRLoFV0SAECQEPy
+p3i0+OQvXCDBF7OU2C7FnUjFKOG03XwV1dUa49fMcR96pFm5kdZnnQkDb5bgOOXt
+2NVVhUvtzDn5gUB5FoECQFLA1+P48MrmL4QEMmzpJgnvrK/M8Obm4LFlXPA7uIpi
+HUIUlSYzZFvByTu8UYv/n93WCmiTQeLL2FEYIJO8xUA=
+-----END RSA PRIVATE KEY-----',
+    'appPublicKey'=>'-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCapAZZraRTkJCXiSGZ5ihz9ebN
+w5DGnng/gklboME+YMHKN37GskbQGpi5h/tt0OP3anwiBHsOv18psDTruV9aY4Hx
+xj4IAZUuNKKMLu98dcX24rfBp9X53234PyCneQzXJ2Q9Xr0ehPJIe61tkiYkIdbv
+zJl7AnhoFTwEHtXP2QIDAQAB
+-----END PUBLIC KEY-----',
+    'accessToken' =>"4470efa9-b6e7-44b9-9265-b2aac9bcf080"//我的
 
 ];
