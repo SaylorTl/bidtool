@@ -8,21 +8,18 @@ namespace App\Support\Ppdai\RequestMeta;
 use App\Support\Ppdai\Contract\RequestMetaContract;
 
 
-class LoanList implements RequestMetaContract
+class LoanDetail implements RequestMetaContract
 {
-    private $pageIndex =1;
-    private $startDateTime;
+    private $listingIds;
 
-    public function __construct($StartDateTime,$pageIndex = 1)
+    public function __construct($listingIds)
     {
-        $this->pageIndex = $pageIndex;
-        $this->startDateTime = $StartDateTime;
+        $this->listingIds = $listingIds;
     }
 
     public function toJson(){
         return json_encode([
-            'PageIndex'=>$this->pageIndex,
-            'StartDateTime'=>$this->startDateTime
+            'ListingIds'=>$this->listingIds,
         ]);
     }
 

@@ -26,7 +26,7 @@ class PpdaiServiceProvider extends ServiceProvider
     {
         //使用bind绑定实例到接口以便依赖注入
         $this->app->bind('PpdaiService',function(){
-            return PpdaiService::getInstance();
+            return new PpdaiService();
         });
     }
 }

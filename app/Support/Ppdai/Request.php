@@ -5,6 +5,7 @@
 
 namespace App\Support\Ppdai;
 
+use App\Support\Ppdai\Response\Loan;
 use GuzzleHttp\Client;
 use App\Support\Ppdai\Contract\RequestMetaContract;
 

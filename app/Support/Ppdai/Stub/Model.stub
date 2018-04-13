@@ -1,0 +1,29 @@
+<?php
+// +----------------------------------------------------------------------
+// | Author: 杨尧 <yangyao@sailvan.com>
+// +----------------------------------------------------------------------
+
+namespace App\Support\Ppdai\Response;
+
+
+
+
+class {{className}}
+{
+{{field}}
+
+    public static function createList(array $dataList){
+        $instanceList = array();
+        foreach ($dataList as $item){
+            $instanceList[] = self::create($item);
+        }
+        return collect($instanceList);
+    }
+
+    public static function create(array $data){
+        $instance = new self();
+{{assignment}}
+        return $instance;
+    }
+
+}
