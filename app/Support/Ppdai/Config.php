@@ -4,21 +4,22 @@
 // +----------------------------------------------------------------------
 
 namespace App\Support\Ppdai;
+use Illuminate\Support\Facades\Config as LaravelConfig;
 use Exception;
 
 class Config
 {
     private $data;
 
-    public function __construct() {
-        $this->data = Config::get('ppdai');
+    public function __construct(array $data = []) {
+        $this->data = !empty($data) ? $data : LaravelConfig::get('ppdai');
     }
 
-    public function __call($func, $args){
-        if (!array_key_exists($func, $this->data)) {
-            throw new Exception(__METHOD__."No such field:{$func}");
+    public function __get($key){
+        if (!array_key_exists($key, $this->data)) {
+            throw new Exception(__METHOD__." No such field:{$key}");
         }
-        return $this->data[$func];
+        return $this->data[$key];
     }
 
     public function toArray() {

@@ -23,6 +23,11 @@ class Api
         $this->client = $client;
     }
 
+    /**
+     * @param $date
+     * @param int $page
+     * @return array| boolean
+     */
     public function getLoanList($date, $page = 1){
         $param = new LoanList($date,$page);
         return $this->client->send($this->endpoint['loanList'],$param);

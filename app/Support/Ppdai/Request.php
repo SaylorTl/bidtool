@@ -21,18 +21,19 @@ class Request
 
     public function send($url,RequestMetaContract $param){
         $timestamp = gmdate ( "Y-m-d H:i:s", time ());
-        $this->client->request('GET', $url, [
+        $response = $this->client->request('POST', $url, [
             'headers' => [
-                'Content-Type'              => 'application/json;charset=UTF-8',
+                'Content-Type'              =>'application/json;charset=UTF-8',
                 'X-PPD-TIMESTAMP'           => $timestamp,
-                'X-PPD-TIMESTAMP-SIGN'      =>Sign::sign($this->_config['appid']. $timestamp),
-                'X-PPD-APPID'               =>$this->_config['appid'],
-                'X-PPD-SIGN'                =>Sign::sign( Sign::sortToSign($param->toJson())),
-                'X-PPD-ACCESSTOKEN' =>''
-            ]
+                'X-PPD-TIMESTAMP-SIGN'      => Sign::sign($this->_config->appid. $timestamp),
+                'X-PPD-APPID'               => $this->_config->appid,
+                'X-PPD-SIGN'                => Sign::sign(Sign::sortToSign($param->toJson())),
+                'X-PPD-ACCESSTOKEN'         => $this->_config->accessToken
+            ],
+            'body'=>$param->toJson()
         ]);
 
-        return null;
+        return json_decode($response->getBody(),true);
     }
 
 
