@@ -1,6 +1,5 @@
 <?php
 namespace App\libraries;
-use App\libraries\RsaClient as RsaClient;
 class http{
 
     public static function SendAuthRequest($url, $request) {

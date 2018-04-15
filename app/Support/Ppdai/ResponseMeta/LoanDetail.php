@@ -3,7 +3,7 @@
 // | Author: 杨尧 <yangyao@sailvan.com>
 // +----------------------------------------------------------------------
 
-namespace App\Support\Ppdai\Response;
+namespace App\Support\Ppdai\ResponseMeta;
 
 
 

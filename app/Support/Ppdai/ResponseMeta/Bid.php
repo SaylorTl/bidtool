@@ -8,16 +8,16 @@ namespace App\Support\Ppdai\ResponseMeta;
 
 
 
-class Loan
+class Bid
 {
+    public $result;
+    public $resultMessage;
     public $listingId;
-    public $title;
-    public $creditCode;
     public $amount;
-    public $rate;
-    public $months;
-    public $payWay;
-    public $remainFunding;
+    public $participationAmount;
+    public $couponAmount;
+    public $couponStatus;
+
 
     public static function createList(array $dataList){
         $instanceList = array();
@@ -29,14 +29,14 @@ class Loan
 
     public static function create(array $data){
         $instance = new self();
+        $instance->result = $data['Result'];
+        $instance->resultMessage = $data['ResultMessage'];
         $instance->listingId = $data['ListingId'];
-        $instance->title = $data['Title'];
-        $instance->creditCode = $data['CreditCode'];
         $instance->amount = $data['Amount'];
-        $instance->rate = $data['Rate'];
-        $instance->months = $data['Months'];
-        $instance->payWay = $data['PayWay'];
-        $instance->remainFunding = isset($data['Remainfunding'])?$data['Remainfunding']:null;
+        $instance->participationAmount = $data['ParticipationAmount'];
+        $instance->couponAmount = $data['CouponAmount'];
+        $instance->couponStatus = $data['CouponStatus'];
+
         return $instance;
     }
 

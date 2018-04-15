@@ -2,13 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\GetPpdaiLoanDetail;
-use App\Services\PpdaiService;
-use App\Support\Ppdai\Response\Loan;
 use Illuminate\Console\Command;
-use Predis;
-use App\libraries\OpenapiClient as OpenapiClient;
-use App\Jobs\DoBid;
+use App\libraries\OpenapiClient;
 
 
 class PpdaiAuth extends Command

@@ -2,14 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\GetPpdaiLoan;
 use App\Jobs\GetPpdaiLoanDetail;
+use App\Jobs\PpdaiBid;
 use App\Services\PpdaiService;
-use App\Support\Ppdai\Response\Loan;
+use App\Support\Ppdai\RequestMeta\Bid;
+use App\Support\Ppdai\RequestMeta\LoanDetail;
+use App\Support\Ppdai\RequestMeta\LoanList;
+use App\Support\Ppdai\ResponseMeta\Loan;
 use Illuminate\Console\Command;
-use Predis;
-use App\libraries\OpenapiClient as OpenapiClient;
-use App\Jobs\DoBid;
-
 
 class PpdaiProcess extends Command
 {
@@ -18,46 +19,36 @@ class PpdaiProcess extends Command
 
     protected $description = 'A single process to get one page of loan';
 
-    private $cache;
-    private $client;
-
     public function __construct()
     {
         parent::__construct();
-        $this->client = new OpenapiClient();
-        $this->cache  = new Predis\Client();
     }
 
     public function handle(PpdaiService $service)
     {
-        //定时清理缓存
-        $nowRecodeTime = time();
-        $lastRecodeTime = $this->cache->get("lastRecodeTime") ;
-        if($nowRecodeTime - $lastRecodeTime >3600){
-            $this->cache->set("lastRecodeTime",$nowRecodeTime);
-        }
         $aviLoan = [];
         $date = date("Y-m-d H:i:s",time()-3600);
-        $loanList = $service->getLoanList($date,$this->argument('page'));
+        $loanListMeta = new LoanList($date,$this->argument('page'));
+        $loanList = $service->getLoanList($loanListMeta);
         /** @var $loan Loan*/
         foreach($loanList as $loan){
-            if($loan->rate <12 || $loan->months > 12){
-                continue;
-            }
-            if($this->cache->get("ppid".$loan->listingId)){
+            var_dump($loan);
+            if($loan->rate < 12 || $loan->months > 12){
                 continue;
             }
             if($loan->creditCode == 'AA'){
-                $this->dispatch((new DoBid($loan))->onQueue('dobid'));
+                $bidMeta = new Bid($loan->listingId,50,true);
+                $this->dispatch((new PpdaiBid($bidMeta))->onQueue(PpdaiService::QUEUE_PPDAI_BID));
                 continue;
             }
-            $aviLoan[]=$loan->listingId;
+            $aviLoan[] = $loan->listingId;
         }
         $temp = array();
         foreach($aviLoan as $k=>$v){
             $temp[]=$v;
             if(($k % 9==0 && $k>=0) || (count($aviLoan)< 9 && $k==count($aviLoan)-1) ){
-                $this->dispatch((new GetPpdaiLoanDetail($temp))->onQueue('loaninfo'));
+                $loanMeta = new LoanDetail($temp);
+                GetPpdaiLoan::dispatch($loanMeta)->onQueue(PpdaiService::QUEUE_PPDAI_LOAN);
             }
         }
     }

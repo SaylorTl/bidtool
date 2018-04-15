@@ -6,6 +6,7 @@
 namespace App\Support\Ppdai;
 
 
+use App\Support\Ppdai\RequestMeta\Bid;
 use App\Support\Ppdai\RequestMeta\LoanList;
 use App\Support\Ppdai\RequestMeta\LoanDetail;
 
@@ -15,6 +16,7 @@ class Api
         'base' => 'https://openapi.ppdai.com/',
         'loanList' => 'https://openapi.ppdai.com/invest/LLoanInfoService/LoanList',
         'loanDetail' => 'https://openapi.ppdai.com/invest/LLoanInfoService/BatchListingInfos',
+        'bid' => 'https://openapi.ppdai.com/invest/BidService/Bidding',
     ];
 
     private $_config;
@@ -26,18 +28,19 @@ class Api
     }
 
     /**
-     * @param $date
-     * @param int $page
+     * @param $param LoanList
      * @return array| boolean
      */
-    public function getLoanList($date, $page = 1){
-        $param = new LoanList($date,$page);
+    public function getLoanList(LoanList $param){
         return $this->client->send($this->endpoint['loanList'],$param);
     }
 
-    public function getLoanDetail($ListingIds){
-        $param = new LoanDetail($ListingIds);
-        return $this->client->send($this->endpoint['loanList'],$param);
+    public function getLoanDetail(LoanDetail $param){
+        return $this->client->send($this->endpoint['loanDetail'],$param);
+    }
+
+    public function bid(Bid $param){
+        return $this->client->send($this->endpoint['bid'],$param);
     }
 
 

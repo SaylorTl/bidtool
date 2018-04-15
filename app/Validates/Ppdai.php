@@ -6,7 +6,7 @@
 namespace App\Validates;
 
 
-use App\Support\Ppdai\Response\LoanDetail;
+use App\Support\Ppdai\ResponseMeta\LoanDetail;
 
 class Ppdai
 {

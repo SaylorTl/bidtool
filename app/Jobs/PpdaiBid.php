@@ -2,29 +2,26 @@
 
 namespace App\Jobs;
 
+use App\Services\PpdaiService;
+use App\Support\Ppdai\RequestMeta\Bid;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\libraries\OpenapiClient as OpenapiClient;
-use Predis;
-
 
 class PpdaiBid implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $listingId;
-    public function __construct($listingId)
+    public $bidMeta;
+    public function __construct(Bid $bidMata)
     {
-        $this->listingId = $listingId;
+        $this->bidMeta = $bidMata;
     }
     
-    public function handle()
+    public function handle(PpdaiService $service)
     {
-        $url = "https://openapi.ppdai.com/invest/BidService/Bidding";
-        $request = '{"ListingId": '.$this->listingId.',"Amount": 50,"UseCoupon":"true"}';
-        $result = json_decode($this->client->send($url, $request,config('app.accessToken'),5),true);
+        $service->bid($this->bidMeta);
     }
 }
